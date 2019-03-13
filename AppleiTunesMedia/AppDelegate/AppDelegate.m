@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <AFNetworking.h>
+
 
 @interface AppDelegate ()
 
@@ -17,6 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self startNetworkDiscovering];
     return YES;
 }
 
@@ -48,4 +51,16 @@
 }
 
 
+
+#pragma mark - Check Internet Using AfNetworking
+
+
+
+-(void) startNetworkDiscovering{
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        NSLog(@"Reachability: %@", AFStringFromNetworkReachabilityStatus(status));
+    }];
+    
+}
 @end
