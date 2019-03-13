@@ -13,6 +13,8 @@
 #define APPLE_MEDIA_BASE_URL @"https://rss.itunes.apple.com/api/v1/us/%@/all/10/explicit.json"
 
 #define APPLE_MUSIC @"apple-music/coming-soon"
+#define MOIVE @"movies/top-movies"
+#define TVSHOW @"tv-shows/top-tv-episodes"
 #define ITUNES_MUSIC @"itunes-music/hot-tracks"
 #define IOS_APPS @"ios-apps/new-apps-we-love"
 
@@ -25,6 +27,8 @@ typedef enum{
 
 typedef enum{
     APPLEMUSIC,
+    MOVIES,
+    TVSHOWS,
     ITUNESMUSIC,
     IOSAPP
 }MediaType;

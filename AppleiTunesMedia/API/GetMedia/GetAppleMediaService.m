@@ -23,7 +23,7 @@
     
     if (mediaType == APPLEMUSIC )
     {
-       finalMediaSerivceUrl = [NSString stringWithFormat:APPLE_MEDIA_BASE_URL,[NSString stringWithFormat:@"%@",ITUNES_MUSIC]];
+       finalMediaSerivceUrl = [NSString stringWithFormat:APPLE_MEDIA_BASE_URL,[NSString stringWithFormat:@"%@",APPLE_MUSIC]];
     }
     else if (mediaType == ITUNESMUSIC)
     {
@@ -33,6 +33,14 @@
     {
         finalMediaSerivceUrl = [NSString stringWithFormat:APPLE_MEDIA_BASE_URL,[NSString stringWithFormat:@"%@",IOS_APPS]];
     }
+    else if (mediaType == MOVIES)
+    {
+        finalMediaSerivceUrl = [NSString stringWithFormat:APPLE_MEDIA_BASE_URL,[NSString stringWithFormat:@"%@",MOIVE]];
+    }
+    else if (mediaType == TVSHOWS)
+    {
+        finalMediaSerivceUrl = [NSString stringWithFormat:APPLE_MEDIA_BASE_URL,[NSString stringWithFormat:@"%@",TVSHOW]];
+    }
     
     [genericSercie callServiceWithURL:finalMediaSerivceUrl requestType:GET httpHeader:header
                            parameters:nil callWithControlerId:self withCompletionHandler:^(NSData * _Nonnull data, NSError * _Nonnull error) {
@@ -40,14 +48,13 @@
                                
                                @try {
                                    if (data) {
-                                       int status = [[data valueForKey:@"success"] intValue];
                                        
-                                       if (status == 1)
-                                       {
-                                           NSError* error;
-                                           NSDictionary* jsonDic = [NSJSONSerialization JSONObjectWithData:data
-                                                                                                options:kNilOptions
-                                                                                                  error:&error];
+                                       NSDictionary * jsonDic = [data valueForKey:@"feed"];
+                                       
+//                                           NSError* error;
+//                                           NSDictionary* jsonDic = [NSJSONSerialization JSONObjectWithData:data
+//                                                                                                options:kNilOptions
+//                                                                                                  error:&error];
                                            if(completionHandler) {
                                                completionHandler(jsonDic, nil);
                                            }
@@ -60,14 +67,7 @@
                                                completionHandler(nil, error);
                                            }
                                        }
-                                   }
-                                   else
-                                   {
-                                       if(completionHandler) {
-                                           completionHandler(nil, error);
-                                       }
-                                   }
-                               } @catch (NSException *exception) {
+                                   }@catch (NSException *exception) {
                                    NSLog(@" Media Service Exception %@", exception);
                                    if(completionHandler) {
                                        completionHandler(nil, error);
