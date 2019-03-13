@@ -1,0 +1,4 @@
+target 'AppleiTunesMedia' do
+pod 'AFNetworking'
+
+end
